@@ -18,7 +18,7 @@ airflow users create \
 	--role Admin \
 	--email kevin.nowland@gmail.com
 
-airflow webserver --port 8080
+# start airflow in background
+airflow webserver --port 8080 -D
 
-airflow schedule
-
+airflow scheduler
