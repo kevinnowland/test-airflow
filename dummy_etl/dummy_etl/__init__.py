@@ -1,3 +1,3 @@
-from .extract_reddit import extract_then_save_comments
+from .extract_reddit import extract_subreddit_comments
 from .transform_comments import transform_directory
 from .load_dynamodb import load_directory

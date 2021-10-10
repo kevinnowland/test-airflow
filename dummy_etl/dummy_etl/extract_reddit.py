@@ -70,7 +70,7 @@ def save_raw_comments(subreddit_name: str, comments: List[Comment], dir_path: st
             f.write(comment_str)
 
 
-def extract_then_save_comments(subreddit_name: str, dir_path: str) -> None:
+def extract_subreddit_comments(subreddit_name: str, dir_path: str) -> None:
     """ save some top comments from the given subredit
     to disk with format subredditname_timestamp.csv
     """
