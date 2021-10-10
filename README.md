@@ -7,7 +7,7 @@ which can be installed via
 ```bash
 git clone https://github.com/kevinnowland/test-airflow
 cd test-airflow/dummy_etl
-pip install git+https://github.com/kevinnowland/test-airflow/tree/main/dummy_etl
+pip install .
 cd ../..
 rm -rf test-airflow
 ```
