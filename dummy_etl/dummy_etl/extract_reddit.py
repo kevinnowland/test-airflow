@@ -56,11 +56,11 @@ def extract_raw_comments(subreddit_name: str) -> List[Comment]:
     return top_comments
 
 
-def save_raw_comments(subreddit_name: str, comments: List[Comment]) -> None:
+def save_raw_comments(subreddit_name: str, comments: List[Comment], dir_path: str) -> None:
     """ save comment username, id, and body in csv NO HEADER """
 
     now_str = datetime.now().strftime('%Y%m%d%H%M')
-    file_name = subreddit_name + '_' + now_str + '.csv'
+    file_name = dir_path + '/' + subreddit_name + '_' + now_str + '.csv'
 
     with open(file_name, 'w') as f:
         for comment in comments:
@@ -70,10 +70,10 @@ def save_raw_comments(subreddit_name: str, comments: List[Comment]) -> None:
             f.write(comment_str)
 
 
-def extract_then_save_comments(subreddit_name: str) -> None:
+def extract_then_save_comments(subreddit_name: str, dir_path: str) -> None:
     """ save some top comments from the given subredit
     to disk with format subredditname_timestamp.csv
     """
 
     comments = extract_raw_comments(subreddit_name)
-    save_raw_comments(subreddit_name, comments)
+    save_raw_comments(subreddit_name, comments, dir_path)
