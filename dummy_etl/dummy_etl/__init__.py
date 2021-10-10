@@ -1,1 +1,1 @@
-from .secrets import get_reddit_secrets
+from .reddit import get_reddit_secrets
