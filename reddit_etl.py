@@ -13,18 +13,19 @@ args = {
     'email': 'kevin.nowland@gmail.com',
     'email_on_failure': True,
     'email_on_retry': False,
-    'schedule_interval': '@weekly',
     'retries': 0
 }
 
 with DAG(
-    dag_id='reddit-etl',
+    'reddit_etl',
     default_args=args,
+    schedule_interval='@weekly',
     start_date=days_ago(2),
-    catchup=False
+    catchup=False,
+    tags=['reddit'],
 ) as dag:
 
-   dir_path = '/home/kevin/Desktop/etl'
+    dir_path = '/home/kevin/Desktop/etl'
 
     subreddits = [
         'AskHistorians',
@@ -57,7 +58,4 @@ with DAG(
     )
 
     # define dag
-    for task in extract_tasks:
-        task >> transform
-
-    transfrom >> load
+    extract_tasks >> transform >> load
