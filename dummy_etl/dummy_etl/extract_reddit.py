@@ -49,6 +49,7 @@ def extract_raw_comments(subreddit_name: str) -> List[Comment]:
         return comments[:2]
 
     top_comments = [
+        comment
         for submission in top_submissions
         for comment in get_top_comments(submission)
     ]
