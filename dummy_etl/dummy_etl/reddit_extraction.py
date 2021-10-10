@@ -57,24 +57,22 @@ def load_raw_comments(subreddit_name: str) -> List[Comment]:
 
 
 def save_raw_comments(subreddit_name: str, comments: List[Comment]) -> None:
-    """ save comment username, id, and body in csv """
+    """ save comment username, id, and body in csv NO HEADER """
 
-    now_str = datetime.now().strftime('%H%m%d%H%M')
+    now_str = datetime.now().strftime('%Y%m%d%H%M')
     file_name = subreddit_name + '_' + now_str + '.csv'
 
     with open(file_name, 'w') as f:
-        f.write('username,comment_id,body\n')
-
         for comment in comments:
             comment_str = comment.author.name
             comment_str += ',' + comment.id
-            comment_str += ',' + comment.body.replace('\n', '') + '\n'
+            comment_str += ',' + comment.body.replace('\n', '').replace(',', '') + '\n'
             f.write(comment_str)
 
 
 def load_then_save_comments(subreddit_name: str) -> None:
     """ save some top comments from the given subredit
-    to disk with firmat subredditname_timestamp.csv
+    to disk with format subredditname_timestamp.csv
     """
 
     comments = load_raw_comments(subreddit_name)
