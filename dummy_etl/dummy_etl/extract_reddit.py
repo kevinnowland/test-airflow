@@ -43,12 +43,12 @@ def extract_raw_comments(subreddit_name: str) -> List[Comment]:
     def get_top_comments(submission):
         """ get a few comments per submission as long
         as they are at least 200 characters long """
+        submission.comments.replace_more(limit=0)
         comments = [c for c in submission.comments if len(c.body) > 100]
         comments.sort(key=lambda c: c.score, reverse=True)
         return comments[:2]
 
     top_comments = [
-        comment
         for submission in top_submissions
         for comment in get_top_comments(submission)
     ]
