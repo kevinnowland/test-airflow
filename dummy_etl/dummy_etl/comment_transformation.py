@@ -112,21 +112,21 @@ def process_file(filename: str) -> bool:
 
             for line in lines:
                 splits = line.split(',')
-                f.write('\t- comment_id: ' + splits[1] + '\n')
-                f.write('\t  username: ' + splits[0] + '\n')
-                f.write('\t  word_vecs: |\n')
+                f.write('    - comment_id: ' + splits[1] + '\n')
+                f.write('      username: ' + splits[0] + '\n')
+                f.write('      word_vecs: |\n')
 
                 word_vecs = comment_to_vecs(splits[2])
 
                 for vec in word_vecs:
-                    f.write('\t\t' + str(vec) + '\n')
+                    f.write('        ' + str(vec)[1:-1].replace(' ', '') + '\n')
     except CommentToVecError:
         return False
 
     return True
 
 
-def process_all_filenames(dir_path: str) -> bool:
+def process_directory(dir_path: str) -> bool:
     """ process all raw files in a directory """
     raw_files = get_raw_filenames(dir_path)
     return all([process_file(filename) for filename in raw_files])

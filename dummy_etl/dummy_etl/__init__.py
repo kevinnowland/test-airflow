@@ -1,2 +1,2 @@
 from .reddit_extraction import load_then_save_comments
-from .comment_transformation import process_all_filenames
+from .comment_transformation import process_directory
