@@ -1,1 +1,1 @@
-from .reddit import get_reddit_secrets
+from .reddit import load_then_save_comments
