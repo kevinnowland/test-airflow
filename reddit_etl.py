@@ -38,7 +38,7 @@ with DAG(
             python_callable=extract_subreddit_comments,
             op_kwargs={
                 'dir_path': dir_path,
-                'subreddit': subreddit
+                'subreddit_name': subreddit
             }
         )
         for subreddit in subreddits
