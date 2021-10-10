@@ -32,7 +32,7 @@ def load_reddit() -> Reddit:
     return reddit
 
 
-def load_raw_comments(subreddit_name: str) -> List[Comment]:
+def extract_raw_comments(subreddit_name: str) -> List[Comment]:
     """ find top submissions in past week and choose a couple
     comments from them. """
 
@@ -70,10 +70,10 @@ def save_raw_comments(subreddit_name: str, comments: List[Comment]) -> None:
             f.write(comment_str)
 
 
-def load_then_save_comments(subreddit_name: str) -> None:
+def extract_then_save_comments(subreddit_name: str) -> None:
     """ save some top comments from the given subredit
     to disk with format subredditname_timestamp.csv
     """
 
-    comments = load_raw_comments(subreddit_name)
+    comments = extract_raw_comments(subreddit_name)
     save_raw_comments(subreddit_name, comments)

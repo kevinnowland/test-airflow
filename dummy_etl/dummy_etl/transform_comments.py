@@ -81,7 +81,7 @@ def comment_to_vecs(comment: str) -> List[List[numpy.float32]]:
     return word_vecs[:20]
 
 
-def process_file(filename: str) -> bool:
+def transform_file(filename: str) -> bool:
     """ read in comment file and write to processed version of file
     assumes filename ends in .csv
 
@@ -126,7 +126,7 @@ def process_file(filename: str) -> bool:
     return True
 
 
-def process_directory(dir_path: str) -> bool:
+def transform_directory(dir_path: str) -> bool:
     """ process all raw files in a directory """
     raw_files = get_raw_filenames(dir_path)
-    return all([process_file(filename) for filename in raw_files])
+    return all([transform_file(filename) for filename in raw_files])
