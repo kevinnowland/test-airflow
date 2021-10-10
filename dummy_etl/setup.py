@@ -9,10 +9,10 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
     name="dummy_etl",
     version="0.1",
-    description="reddit comment etl"
+    description="reddit comment etl",
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url="https://github.com/kevinnowland/dummy_etl",
+    url='https://github.com/kevinnowland/test-airflow/tree/main/dummy_etl',
     author="Kevin Nowland",
     license="MIT",
     packages=["dummy_etl"],
