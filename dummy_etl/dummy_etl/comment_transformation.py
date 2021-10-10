@@ -8,7 +8,11 @@ import spacy
 from typing import List
 
 
-def get_filenames(dir_path: str) -> List[str]:
+class CommentToVecError(Exception):
+    pass
+
+
+def get_raw_filenames(dir_path: str) -> List[str]:
     """ find appropriate filenames """
 
     all_files = os.listdir(dir_path)
@@ -22,10 +26,10 @@ def get_filenames(dir_path: str) -> List[str]:
 
 
 def comment_to_vecs(comment: str) -> List[List[numpy.float32]]:
-    """ process comment into a list of vectors. 
+    """ process comment into a list of vectors.
     Limiting to only 20 words per comment in response
     """
-    
+
     nlp = spacy.load('en_core_web_sm')
 
     # define objects needed for cleaning
@@ -77,7 +81,7 @@ def comment_to_vecs(comment: str) -> List[List[numpy.float32]]:
     return word_vecs[:20]
 
 
-def process_file(filename):
+def process_file(filename: str) -> bool:
     """ read in comment file and write to processed version of file
     assumes filename ends in .csv
 
@@ -96,18 +100,33 @@ def process_file(filename):
 
     processed_filename = filename[:-4] + '_PROCESSED.yml'
 
-    with open(filename, 'r') as f:
-        lines = f.readlines()
+    try:
+        with open(filename, 'r') as f:
+            lines = f.readlines()
+    except FileNotFoundError:
+        return False
 
-    with open(processed_filename, 'w') as f:
-        f.write('comments:\n')
+    try:
+        with open(processed_filename, 'w') as f:
+            f.write('comments:\n')
 
-        for line in lines:
-            splits = line.split(',')
-            f.write('\t- comment_id: ' + splits[1] + '\n')
-            f.write('\t  username: ' + splits[0] + '\n')
-            f.write('\t  word_vecs: |\n')
+            for line in lines:
+                splits = line.split(',')
+                f.write('\t- comment_id: ' + splits[1] + '\n')
+                f.write('\t  username: ' + splits[0] + '\n')
+                f.write('\t  word_vecs: |\n')
 
-            word_vecs = comment_to_vecs(splits[2])
-            for vec in word_vecs:
-                f.write('\t\t' + str(vec) + '\n')
+                word_vecs = comment_to_vecs(splits[2])
+
+                for vec in word_vecs:
+                    f.write('\t\t' + str(vec) + '\n')
+    except CommentToVecError:
+        return False
+
+    return True
+
+
+def process_all_filenames(dir_path: str) -> bool:
+    """ process all raw files in a directory """
+    raw_files = get_raw_filenames(dir_path)
+    return all([process_file(filename) for filename in raw_files])
