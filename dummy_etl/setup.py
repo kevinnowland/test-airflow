@@ -19,7 +19,7 @@ setup(
     install_requires=[
         'spacy==3.1.3',
         'en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.1.0/en_core_web_sm-3.1.0.tar.gz',
-        'boto3>=1.18',
+        'boto3>=1.17',
         'praw>=7.4',
         'pyyaml>=5.4'
     ],
